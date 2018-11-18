@@ -20,11 +20,41 @@ namespace BotStop
             parser = new ParserWorker<string[]>(
                      new CdsParser()
                  );
+
+            List<Stop> stops = new List<Stop>
+{
+    new Stop {BusStop=181, Side= "ул. космонавтра Владислава Волкова", SideCount = 1, Name = new List<string> {"Ипподром", "ипподром" , "иподром", "Иподром"}},
+    new Stop {BusStop=121, Side= "Слобода Егоровская", SideCount = 2, Name = new List<string> {"Ипподром", "ипподром" , "иподром", "Иподром"}},
+    new Stop {BusStop=102, Side= "Европейские улочки", SideCount = 3, Name = new List<string> {"Ипподром", "ипподром" , "иподром", "Иподром"}},
+};
+
+
             Console.WriteLine("Введите остановку");
-            int a = Convert.ToInt32(Console.ReadLine());
-            parser.Settings = new CdsSettings((int)a);
-            parser.Start();
-            parser.OnNewData += Parser_OnNewData;
+            string nameBus = Convert.ToString(Console.ReadLine());
+            var selectedStops = from stop in stops
+                                from name in stop.Name
+                                where name == nameBus
+                                select stop;
+            int count = 0;
+            Console.WriteLine("Введите цифру остановки, в какую сторону вам надо:");
+            foreach (Stop stop in selectedStops)
+            {
+                count++;
+                Console.WriteLine($"{count}- {stop.Side}");
+            }
+            int usertext = Convert.ToInt32(Console.ReadLine());
+            count = usertext;
+            var selectedStops3 = from stop3 in stops
+                                 where stop3.SideCount == count
+                                 select stop3;
+            foreach (Stop stop3 in selectedStops3)
+            {
+                string stops2 = stop3.BusStop.ToString();
+                int stops3 = Convert.ToInt32(stops2);
+                parser.Settings = new CdsSettings((int)stops3);
+                parser.Start();
+                parser.OnNewData += Parser_OnNewData;
+            }
             Console.ReadLine();
         }
 

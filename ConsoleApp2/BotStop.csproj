@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Core\CDS\CdsParser.cs" />
     <Compile Include="Core\CDS\CdsSettings.cs" />
+    <Compile Include="Core\CDS\Stop.cs" />
     <Compile Include="Core\HtmlLoader.cs" />
     <Compile Include="Core\IParser.cs" />
     <Compile Include="Core\IParserSettings.cs" />
