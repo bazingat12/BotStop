@@ -74,7 +74,7 @@ namespace BotStop.Core
        public void Cool()
         {
             isActive = true;
-            botClient = new TelegramBotClient("784742481:AAFrYubmGTfNAWSjZKK99uLmoazLUQrGWoY");
+            botClient = new TelegramBotClient("token");
             botClient.OnMessage += Bot_OnMessage;
             botClient.StartReceiving();
             Thread.Sleep(5000);
@@ -84,7 +84,7 @@ namespace BotStop.Core
         public void Cool2()
         {
             isActive = true;
-            botClient = new TelegramBotClient("784742481:AAFrYubmGTfNAWSjZKK99uLmoazLUQrGWoY");
+            botClient = new TelegramBotClient("token");
             botClient.StartReceiving();
             botClient.OnMessage += Bot_OnMessage2;
             Thread.Sleep(5000);
@@ -94,7 +94,7 @@ namespace BotStop.Core
         public void Cool3()
         {
             isActive = true;
-            botClient = new TelegramBotClient("784742481:AAFrYubmGTfNAWSjZKK99uLmoazLUQrGWoY");
+            botClient = new TelegramBotClient("token");
             botClient.StartReceiving();
             botClient.OnMessage += Bot_OnMessage3;
             Thread.Sleep(5000);
