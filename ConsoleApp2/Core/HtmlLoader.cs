@@ -9,6 +9,7 @@ namespace BotStop.Core
         readonly HttpClient client;
         readonly string url;
 
+
         //парсинг страницы
         public HtmlLoader(IParserSettings settings)
         {

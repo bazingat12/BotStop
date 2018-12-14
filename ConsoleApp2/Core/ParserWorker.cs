@@ -4,13 +4,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Telegram.Bot;
+using System.Threading;
+using Telegram.Bot.Args;
+using BotStop.Core.CDS;
+using Telegram.Bot.Types;
 
 namespace BotStop.Core
 {
-    class ParserWorker<T> where T : class
+    internal static class xXXx
     {
+        internal static string xXx;
+        internal static string xXx2;
+    }
+  internal  class ParserWorker<T> where T : class
+    {
+        internal static string xXx3;
+        static ITelegramBotClient botClient;
         IParser<T> parser;
         IParserSettings parserSettings;
+        private static string z = string.Empty;
+        static string l;
+        static string n;
 
         HtmlLoader loader;
 
@@ -56,7 +71,89 @@ namespace BotStop.Core
         public event Action<object, T> OnNewData;
         public event Action<object> OnCompleted;
 
-        public ParserWorker(IParser<T> parser)
+       public void Cool()
+        {
+            isActive = true;
+            botClient = new TelegramBotClient("784742481:AAFrYubmGTfNAWSjZKK99uLmoazLUQrGWoY");
+            botClient.OnMessage += Bot_OnMessage;
+            botClient.StartReceiving();
+            Thread.Sleep(5000);
+            return;
+        }
+
+        public void Cool2()
+        {
+            isActive = true;
+            botClient = new TelegramBotClient("784742481:AAFrYubmGTfNAWSjZKK99uLmoazLUQrGWoY");
+            botClient.StartReceiving();
+            botClient.OnMessage += Bot_OnMessage2;
+            Thread.Sleep(5000);
+            return;
+        }
+
+        public void Cool3()
+        {
+            isActive = true;
+            botClient = new TelegramBotClient("784742481:AAFrYubmGTfNAWSjZKK99uLmoazLUQrGWoY");
+            botClient.StartReceiving();
+            botClient.OnMessage += Bot_OnMessage3;
+            Thread.Sleep(5000);
+            return;
+        }
+
+        public async void Bot_OnMessage3(object sender, MessageEventArgs e)
+        {
+            if (e.Message.Text == "3")
+            {
+                 isActive = true;
+                T x = await Worker();
+                xXXx.xXx = Convert.ToString(x);
+                string t3 = Convert.ToString(x);
+                Console.WriteLine(xXXx.xXx);
+                await botClient.SendTextMessageAsync(
+                   text: t3,
+                 chatId: e.Message.Chat
+               );
+                return;
+            }
+            else { return; }
+        }
+
+        public async void Bot_OnMessage2(object sender, MessageEventArgs e)
+        {
+            if (e.Message.Text == "2")
+            {
+                Console.WriteLine("ТЕКСТ ИЗ МЕТОДА " + e.Message.Text);
+                // isActive = true;
+                T x = await Worker();
+                string t = Convert.ToString(x);
+                Console.WriteLine(t);
+                await /*Program.*/botClient.SendTextMessageAsync(
+                   text: /*xXXx.xXx*/ t,
+                 chatId: e.Message.Chat
+               );
+                return;
+            }
+            else { return; }
+        }
+
+            public async void Bot_OnMessage(object sender, MessageEventArgs e)
+        {
+            if (e.Message.Text == "1")
+            {
+                isActive = true;
+                T x = await Worker();
+                string t2 = Convert.ToString(x);
+                await /*Program.*/botClient.SendTextMessageAsync(
+                   text: t2,
+                 chatId: e.Message.Chat
+               );
+                return;
+            }
+            else { return; }
+        }
+
+            public ParserWorker(IParser<T> parser)
         {
             this.parser = parser;
         }
@@ -66,10 +163,9 @@ namespace BotStop.Core
             this.parserSettings = parserSettings;
         }
 
-        public void Start()
+        public async void StartAsync()
         {
             isActive = true;
-            Worker();
         }
 
         public void Abort()
@@ -77,29 +173,16 @@ namespace BotStop.Core
             isActive = false;
         }
 
-        private async void Worker()
+        public async Task<T> Worker()
         {
             int i = parserSettings.StartPoint;
-                if (!isActive)
-                {
-                    OnCompleted?.Invoke(this);
-                    return;
-                }
-
                 var source = await loader.GetSourceByPageId(i);
                 var domParser = new HtmlParser();
-
                 var document = await domParser.ParseAsync(source);
-
                 var result = parser.Parse(document);
-
-                OnNewData?.Invoke(this, result);         
-
-            OnCompleted?.Invoke(this);
-            isActive = false;
+            z = Convert.ToString(result);
+            return result;
         }
-
-
     }
 }
 
